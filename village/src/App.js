@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import './App.css';
 import SmurfForm from './components/SmurfForm';
 import Smurfs from './components/Smurfs';
+import SingleSmurf from './components/SingleSmurf';
 
 class App extends Component {
   constructor(props) {
@@ -41,6 +42,7 @@ class App extends Component {
     try {
       const SmurfList = await axios.delete(`http://localhost:3333/smurfs/${id}`)
       this.fetchData()
+      this.props.history.push('/');
     } catch (e) {
       this.setState({
         errorMessage: e.message
@@ -59,7 +61,8 @@ class App extends Component {
       <div className="App">
         <Header/>
         <Route exact path = "/"  render = {props =>  <Smurfs smurfs={this.state.smurfs} handleDelete = {this.handleDelete}/>} />
-        <Route exact path = "/smurf-form" component = {SmurfForm}/>
+        <Route exact path = "/smurf-form" render = {props => <SmurfForm {...props} fetchData = {this.fetchData} />} />
+        <Route path = "/smurfs/:id" render = {props => <SingleSmurf {...props} handleDelete = { this.handleDelete}/>}/>
       </div>
       </Router>
     );

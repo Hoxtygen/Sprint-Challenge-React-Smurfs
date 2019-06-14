@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from "axios"
+import styled from "styled-components";
 
 class SmurfForm extends Component {
   constructor(props) {
@@ -33,14 +34,17 @@ class SmurfForm extends Component {
       height: this.state.height,
       age: this.state.age
     })
-    .then(res =>console.log(res)
-    )
+    .then(res => {
+      this.props.history.push('/');
+      this.props.fetchData();
+    })
     .catch(err => console.log(err))
 };
 
   render() {
     return (
-      <div className="SmurfForm">
+      <FormWrapper>
+        <h1>Add New Smurf</h1>
         <form onSubmit={this.handleAddSmurf}>
           <input
             onChange={this.handleInputChange}
@@ -62,9 +66,37 @@ class SmurfForm extends Component {
           />
           <button type="submit">Add to the village</button>
         </form>
-      </div>
+      </FormWrapper>
     );
   }
 }
+
+const FormWrapper = styled.div `
+  border: 1px solid red;
+  width: 40%;
+  margin: 50px auto;
+
+
+  form  {
+    display: flex;
+    flex-direction: column;
+  }
+  input {
+    display: block;
+    height: 40px;
+    padding: 5px;
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+    outline: none;
+  }
+
+  button {
+    margin-top: 10px;
+    height: 35px;
+    font-size: 1.2rem;
+    background-color: #ccc;
+    color: #222;
+  }
+`
 
 export default SmurfForm;
