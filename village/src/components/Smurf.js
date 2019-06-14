@@ -1,12 +1,14 @@
 import React from 'react';
+import styled from "styled-components";
 
-const Smurf = props => {
+const Smurf = props => {  
   return (
-    <div className="Smurf">
+    <SingleSmurf>
       <h3>{props.name}</h3>
       <strong>{props.height} tall</strong>
       <p>{props.age} smurf years old</p>
-    </div>
+      <button type = "button" onClick = {() => props.handleDelete(props.id)}>Delete</button>
+    </SingleSmurf>
   );
 };
 
@@ -15,6 +17,12 @@ Smurf.defaultProps = {
   height: '',
   age: ''
 };
+
+const SingleSmurf = styled.div `
+  border: 1px solid magenta;
+  min-width: 30%;
+  margin: 10px;
+`
 
 export default Smurf;
 
